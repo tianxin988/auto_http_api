@@ -81,5 +81,4 @@ class ApiTest(ParametrizedTestCase):
                 if fact.get(k, "") == hope[k]:
                     return "通过"
         return "失败"
-	123
 ```
