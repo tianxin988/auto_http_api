@@ -1,6 +1,6 @@
-## ĞèÒªµÇÂ¼
-* ½Ó¿Ú²âÊÔĞèÒªµÇÂ¼·µ»ØµÄÒ»ÏµÁĞÊı¾İ£¬Èç¹ûtoken,sessionµÈµÈ£¬´ò¿ªBaseRunner
-* ¾­¹ısetUpClass´«µİ¸ø¸÷¸ö½Ó¿Ú
+## éœ€è¦ç™»å½•
+* æ¥å£æµ‹è¯•éœ€è¦ç™»å½•è¿”å›çš„ä¸€ç³»åˆ—æ•°æ®ï¼Œå¦‚æœtoken,sessionç­‰ç­‰ï¼Œæ‰“å¼€BaseRunner
+* ç»è¿‡setUpClassä¼ é€’ç»™å„ä¸ªæ¥å£
 
 ```
 def get_session():
@@ -19,20 +19,20 @@ class ParametrizedTestCase(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.rq = get_session() # µÇÂ¼ºóµÄsession
+        cls.rq = get_session() # ç™»å½•åçš„session
         pass
 ```
 
 
-* ÔÚTestCasesÄ¿Â¼ÖĞµÄApi.pyÖĞ½ÓÊÜµÇÂ¼ºóµÄsession,²¢´«¸øBaseReq.pyÖĞ½øĞĞĞŞ¸Ä
+* åœ¨TestCasesç›®å½•ä¸­çš„Api.pyä¸­æ¥å—ç™»å½•åçš„session,å¹¶ä¼ ç»™BaseReq.pyä¸­è¿›è¡Œä¿®æ”¹
 
 ```
 
 class ApiTest(ParametrizedTestCase):
     def test_api(self):
 		ls = read_excel(Element.API_FILE)
-		# self.req ¾ÍÊÇµÃµ½ÁËµÇÂ¼ºóµÄĞÅÏ¢session 
-	    Config().config_req(ls£¬self.req)
+		# self.req å°±æ˜¯å¾—åˆ°äº†ç™»å½•åçš„ä¿¡æ¯session 
+	    Config().config_req(lsï¼Œself.req)
 
     @classmethod
     def setUpClass(cls):
@@ -42,9 +42,9 @@ class ApiTest(ParametrizedTestCase):
 ```
 
 
-## pictÉú³ÉµÄÒì³£³¡¾°
+## pictç”Ÿæˆçš„å¼‚å¸¸åœºæ™¯
 
-* ÔÚBaseParams.pyÖĞµÄ__param_formatº¯ÊıÉú³ÉÒì³£³¡¾°£¬¸ù¾İĞèÒª×ÔĞĞÀ©Õ¹
+* åœ¨BaseParams.pyä¸­çš„__param_formatå‡½æ•°ç”Ÿæˆå¼‚å¸¸åœºæ™¯ï¼Œæ ¹æ®éœ€è¦è‡ªè¡Œæ‰©å±•
 
 ```
  def __param_format(self, key):
@@ -56,12 +56,12 @@ class ApiTest(ParametrizedTestCase):
         return param_type[type(key)]()
 ```
 
-## ¼ì²éµãËµÃ÷
-* ÔÚÆôÓÃpictµÄÄ£ºı²âÊÔºó£¬²»»á¶Ô¼ì²éµã½øĞĞ¼ì²é
-* ÏÖÔÚÖ§³ÖµÄ¼ì²éµãÎª£º
-	* ```{"id":11,"code":2222}```  ¼ì²éµã¿ÉÒÔÉèÖÃÎª£º``` {"code":22}```
-	*  ```{"code":1,data:[{"id": "123"}, {}]}```  ¼ì²éµã¿ÉÒÔÉèÖÃÎª£º```{"id":123}```
-* Èç¹û¼ì²éµã²»¹»ÓÃ¿ÉÒÔ×ÔĞĞÀ©Õ¹£¬´ò¿ªBaseReq.pyÖĞµÄ__checkº¯Êı£º
+## æ£€æŸ¥ç‚¹è¯´æ˜
+* åœ¨å¯ç”¨pictçš„æ¨¡ç³Šæµ‹è¯•åï¼Œä¸ä¼šå¯¹æ£€æŸ¥ç‚¹è¿›è¡Œæ£€æŸ¥
+* ç°åœ¨æ”¯æŒçš„æ£€æŸ¥ç‚¹ä¸ºï¼š
+	* ```{"id":11,"code":2222}```  æ£€æŸ¥ç‚¹å¯ä»¥è®¾ç½®ä¸ºï¼š``` {"code":22}```
+	*  ```{"code":1,data:[{"id": "123"}, {}]}```  æ£€æŸ¥ç‚¹å¯ä»¥è®¾ç½®ä¸ºï¼š```{"id":123}```
+* å¦‚æœæ£€æŸ¥ç‚¹ä¸å¤Ÿç”¨å¯ä»¥è‡ªè¡Œæ‰©å±•ï¼Œæ‰“å¼€BaseReq.pyä¸­çš„__checkå‡½æ•°ï¼š
 
 ```
     def __check(self, hope, res):
@@ -72,13 +72,14 @@ class ApiTest(ParametrizedTestCase):
                 for item in fact[items]:
                     for k in hope:
                         if item.get(k, "") == hope[k]:
-                            return "Í¨¹ı"
+                            return "é€šè¿‡"
             if type(fact[items]) == dict:
                 for k in hope:
                     if fact[items].get(k, "") == hope[k]:
-                        return "Í¨¹ı"
+                        return "é€šè¿‡"
             for k in hope:
                 if fact.get(k, "") == hope[k]:
-                    return "Í¨¹ı"
-        return "Ê§°Ü"
+                    return "é€šè¿‡"
+        return "å¤±è´¥"
+	123
 ```
